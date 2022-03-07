@@ -26,11 +26,14 @@ fi
   echo "# time servers provided by NTP_SERVER environment variables."
 } > ${CHRONY_CONF_FILE}
 
+
 # If we set a BIND_ADDRESS env variable, set it in the config.
 if [[ $BIND_ADDRESS ]]; then
   echo "Setting bind address to: ${BIND_ADDRESS}"
   echo "bindaddress ${BIND_ADDRESS}" >> ${CHRONY_CONF_FILE}
 fi
+
+#"bindcmdaddress 127.0.0.1" >> ${CHRONY_CONF_FILE}
 
 
 # NTP_SERVERS environment variable is not present, so populate with default server
@@ -74,8 +77,12 @@ done
   echo "makestep 0.1 3"
   echo "rtcsync"
   echo
-  echo "allow all"
+  echo "allow 192.168/16"
 } >> ${CHRONY_CONF_FILE}
 
+#cat ${CHRONY_CONF_FILE}
+
 ## startup chronyd in the foreground
-exec /usr/sbin/chronyd -u chrony -d -x -L ${LOG_LEVEL}
+
+## THIS SHOULD RUN WITH -x FLAG BUT I WANT IT TO BE ABLE TO STEP TIME ON THE HOST MACHINE
+exec /usr/sbin/chronyd -u chrony -d -L ${LOG_LEVEL}

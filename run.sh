@@ -3,7 +3,8 @@
 # grab global variables
 source vars
 
-DOCKER=$(which docker)
+#DOCKER=$(which docker)
+DOCKER=docker
 
 # function to check if container is running
 function check_container() {
@@ -18,6 +19,7 @@ function start_container() {
               --publish=123:123/udp                \
               --env=NTP_SERVERS=${NTP_SERVERS}     \
               --env=LOG_LEVEL=${LOG_LEVEL}         \
+              --env=BIND_ADDRESS=0.0.0.0           \
               --read-only=true                     \
               --tmpfs=/etc/chrony:rw,mode=1750     \
               --tmpfs=/run/chrony:rw,mode=1750     \

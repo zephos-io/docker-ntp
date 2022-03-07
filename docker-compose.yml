@@ -3,11 +3,10 @@ version: '3.4'
 services:
   ntp:
     build: .
-    image: cturra/ntp:latest
-    container_name: ntp
     restart: always
+    container_name: ntp
     ports:
-      - 123:123/udp
+      - "123:123/udp"
     read_only: true
     tmpfs:
       - /etc/chrony:rw,mode=1750
@@ -16,3 +15,4 @@ services:
     environment:
       - NTP_SERVERS=time.cloudflare.com
       - LOG_LEVEL=0
+    network_mode: bridge
