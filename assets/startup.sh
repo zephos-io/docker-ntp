@@ -77,6 +77,8 @@ done
   echo "makestep 0.1 3"
   echo "rtcsync"
   echo
+  echo "log tracking measurements statistics"
+  echo "logdir /var/log/chrony"
   echo "allow 192.168/16"
 } >> ${CHRONY_CONF_FILE}
 

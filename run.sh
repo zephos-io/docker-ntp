@@ -24,9 +24,15 @@ function start_container() {
               --tmpfs=/etc/chrony:rw,mode=1750     \
               --tmpfs=/run/chrony:rw,mode=1750     \
               --tmpfs=/var/lib/chrony:rw,mode=1750 \
+              --tmpfs=/var/log/chrony:uid=100,gid=101      \
               ${DOCKER_OPTS}                       \
               ${IMAGE_NAME}:latest > /dev/null
 }
+
+# --mount type=tmpfs,destination=//var/log/chrony,tmpfs-mode=1777  \
+# --mount type=tmpfs,destination=//var/log/chrony,tmpfs-mode=1750  \
+# --tmpfs=/var/log/chrony:uid=100,mode=1000 \
+# --tmpfs=/var/log/chrony:uid=100 \
 
 # check if docker container with same name is already running.
 if [ "$(check_container)" != "" ]; then
