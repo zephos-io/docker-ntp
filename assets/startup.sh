@@ -66,7 +66,7 @@ for N in $NTP_SERVERS; do
 
   # found external time servers
   else
-    echo "server "${N_CLEANED}" iburst" >> ${CHRONY_CONF_FILE}
+    echo "server "${N_CLEANED}" minpoll 4 maxpoll 5 iburst" >> ${CHRONY_CONF_FILE}
   fi
 done
 
@@ -74,7 +74,7 @@ done
 {
   echo
   echo "driftfile /var/lib/chrony/chrony.drift"
-  echo "makestep 0.1 3"
+  echo "makestep 0.1 -1"
   echo "rtcsync"
   echo
   echo "log tracking measurements statistics"
